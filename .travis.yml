@@ -17,15 +17,11 @@ script:
   - docker --version # print the version for logging
   - docker logout
   - docker build -t simple_node .
-  - docker images
+  - docker
   - docker tag simple_node tucpp96/simple_node
   
 
-login:
+after_success:
   - echo Ph@mph11t11c | docker login -u tucpp96 --password-stdin
-
-
-login_success:
-
   - docker image ls 
   - docker push tucpp96/simple_node
