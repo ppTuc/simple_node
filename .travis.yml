@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - 13
+
+services:
+  - docker
+
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
+
+# Scripts to be run such as tests
+before_script:
+  - echo "no tests"
+
+script:
+  - docker --version # print the version for logging
+  - docker logout
+  - docker build -t simple_node .
+  - docker tag simple_node tucpp96/simple_node
+  
+
+after_success:
+  - echo Ph@mph11t11c | docker login -u tucpp96 --password-stdin
+  - docker image ls 
+  - docker push tucpp96/simple_node
